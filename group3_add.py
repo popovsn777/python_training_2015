@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.common.action_chains import ActionChains
-import time
-
-success = True
-wd = WebDriver()
-wd.implicitly_wait(60)
+import time, unittest
 
 def is_alert_present(wd):
     try:
@@ -14,30 +10,56 @@ def is_alert_present(wd):
     except:
         return False
 
-try:
-    wd.get("http://localhost/addressbook/addressbook/")
-    wd.find_element_by_name("user").click()
-    wd.find_element_by_name("user").clear()
-    wd.find_element_by_name("user").send_keys("admin")
-    wd.find_element_by_name("pass").click()
-    wd.find_element_by_name("pass").clear()
-    wd.find_element_by_name("pass").send_keys("secret")
-    wd.find_element_by_css_selector("input[type=\"submit\"]").click()
-    wd.find_element_by_link_text("groups").click()
-    wd.find_element_by_name("new").click()
-    wd.find_element_by_name("group_name").click()
-    wd.find_element_by_name("group_name").clear()
-    wd.find_element_by_name("group_name").send_keys("group_name3")
-    wd.find_element_by_name("group_header").click()
-    wd.find_element_by_name("group_header").clear()
-    wd.find_element_by_name("group_header").send_keys("group_header3")
-    wd.find_element_by_name("group_footer").click()
-    wd.find_element_by_name("group_footer").clear()
-    wd.find_element_by_name("group_footer").send_keys("group_footer3")
-    wd.find_element_by_name("submit").click()
-    wd.find_element_by_link_text("group page").click()
-    wd.find_element_by_link_text("Logout").click()
-finally:
-    wd.quit()
-    if not success:
-        raise Exception("Test failed.")
+class (unittest.TestCase):
+    def setUp(self):
+        self.wd = WebDriver()
+        self.wd.implicitly_wait(60)
+    
+    def test_(self):
+        success = True
+        wd = self.wd
+        wd.get("http://localhost/addressbook/addressbook/")
+        wd.find_element_by_name("user").click()
+        wd.find_element_by_name("user").clear()
+        wd.find_element_by_name("user").send_keys("admin")
+        wd.find_element_by_css_selector("input[type=\"submit\"]").click()
+        wd.find_element_by_name("user").click()
+        wd.find_element_by_name("user").clear()
+        wd.find_element_by_name("user").send_keys("admin")
+        wd.find_element_by_name("pass").click()
+        wd.find_element_by_name("pass").clear()
+        wd.find_element_by_name("pass").send_keys("sceret")
+        wd.find_element_by_css_selector("input[type=\"submit\"]").click()
+        wd.find_element_by_name("user").click()
+        wd.find_element_by_name("user").clear()
+        wd.find_element_by_name("user").send_keys("admin")
+        wd.find_element_by_name("pass").click()
+        wd.find_element_by_name("pass").clear()
+        wd.find_element_by_name("pass").send_keys("secret")
+        wd.find_element_by_css_selector("input[type=\"submit\"]").click()
+        wd.find_element_by_link_text("add new").click()
+        wd.find_element_by_link_text("groups").click()
+        wd.find_element_by_name("new").click()
+        wd.find_element_by_name("group_name").click()
+        wd.find_element_by_name("group_name").clear()
+        wd.find_element_by_name("group_name").send_keys("group_name4")
+        wd.find_element_by_name("group_header").click()
+        wd.find_element_by_name("group_header").clear()
+        wd.find_element_by_name("group_header").send_keys("group_header4")
+        wd.find_element_by_name("group_footer").click()
+        wd.find_element_by_name("group_footer").clear()
+        wd.find_element_by_name("group_footer").send_keys("group_footer")
+        wd.find_element_by_name("group_footer").click()
+        wd.find_element_by_name("group_footer").clear()
+        wd.find_element_by_name("group_footer").send_keys("group4_footer")
+        wd.find_element_by_css_selector("#content > form").click()
+        wd.find_element_by_name("submit").click()
+        wd.find_element_by_link_text("group page").click()
+        wd.find_element_by_link_text("Logout").click()
+        self.assertTrue(success)
+    
+    def tearDown(self):
+        self.wd.quit()
+
+if __name__ == '__main__':
+    unittest.main()
